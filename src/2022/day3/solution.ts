@@ -56,5 +56,5 @@ export default function solution() {
   console.log('2022-day3, total priority:', res);
 
   const res_part2 = Solution.processPart2(str);
-  console.log('2022-day3, total priority:', res_part2);
+  console.log('2022-day3, total badge priority:', res_part2);
 }
