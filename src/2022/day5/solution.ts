@@ -67,7 +67,8 @@ class Solution {
 
   static processInstructions(
     stacks: Map<number, string[]>,
-    instructions: Instruction[]
+    instructions: Instruction[],
+    is9001: boolean = false
   ) {
     instructions.forEach((i) => {
       let source = stacks.get(i.source);
@@ -75,24 +76,11 @@ class Solution {
 
       if (!source || !destination) return;
 
-      destination = destination.concat(source.splice(-i.quantity).reverse());
-
-      stacks.set(i.source, source);
-      stacks.set(i.destination, destination);
-    });
-  }
-
-  static processInstructions9001(
-    stacks: Map<number, string[]>,
-    instructions: Instruction[]
-  ) {
-    instructions.forEach((i) => {
-      let source = stacks.get(i.source);
-      let destination = stacks.get(i.destination);
-
-      if (!source || !destination) return;
-
-      destination = destination.concat(source.splice(-i.quantity));
+      destination = destination.concat(
+        is9001
+          ? source.splice(-i.quantity)
+          : source.splice(-i.quantity).reverse()
+      );
 
       stacks.set(i.source, source);
       stacks.set(i.destination, destination);
@@ -107,31 +95,26 @@ class Solution {
     indices.forEach((i) => {
       const stack = stacks.get(i);
       if (!stack) return;
-
       const c = stack.pop();
       if (c) arr.push(c);
     });
     return arr.join('');
   }
 
-  static processPart1(str: string) {
+  static process(str: string, is9001: boolean = false) {
     const instructions: Instruction[] = Solution.getInstructions(str);
     const indices = Solution.getIndices(str);
     const stacks = Solution.getStacks(str, indices);
-
-    Solution.processInstructions(stacks, instructions);
-
+    Solution.processInstructions(stacks, instructions, is9001);
     return Solution.formatResult(stacks, indices);
   }
 
+  static processPart1(str: string) {
+    return Solution.process(str);
+  }
+
   static processPart2(str: string) {
-    const instructions: Instruction[] = Solution.getInstructions(str);
-    const indices = Solution.getIndices(str);
-    const stacks = Solution.getStacks(str, indices);
-
-    Solution.processInstructions9001(stacks, instructions);
-
-    return Solution.formatResult(stacks, indices);
+    return Solution.process(str, true);
   }
 }
 
