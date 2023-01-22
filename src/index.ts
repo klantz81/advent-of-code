@@ -8,6 +8,7 @@
 // import solution from './2022/day8/solution.js';
 // import solution from './2022/day9/solution.js';
 // import solution from './2022/day10/solution.js';
-import solution from './2022/day11/solution.js';
+// import solution from './2022/day11/solution.js';
+import solution from './2022/day12/solution.js';
 
 solution();
