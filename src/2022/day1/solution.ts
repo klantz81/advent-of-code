@@ -19,7 +19,9 @@ function process_part1(str: string) {
 }
 
 function process_part2(str: string) {
-  const list = preprocess(str).sort().slice(-3);
+  const list = preprocess(str)
+    .sort((a, b) => a - b)
+    .slice(-3);
   return list.reduce((a, t) => a + t);
 }
 
